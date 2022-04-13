@@ -1,21 +1,22 @@
 ﻿using BlazorEcommerce.Shared.Models;
+using BlazorEcommerce.Shared;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
+using BlazorEcommerce.Client.Services.ProductServices;
 
 namespace BlazorEcommerce.Client.Shared.ProductComponents
 {
     public partial class ProductList : ComponentBase
     {
         [Inject]
-        public HttpClient _client { get; set; }
+        public IProductSerivice ProductSerivice { get; set; }
 
         private static List<Product> _products = new List<Product>();
 
         protected override async Task OnInitializedAsync()
         {
-            var result = await _client.GetFromJsonAsync<List<Product>>("api/Product");
-            if(result !=null)
-                   _products = result;
+            await ProductSerivice.GetProducts();
+
         }
 
     }

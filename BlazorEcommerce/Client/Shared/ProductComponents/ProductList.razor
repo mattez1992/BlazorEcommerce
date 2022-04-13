@@ -1,7 +1,12 @@
 ﻿<h3>ProductList</h3>
-
-<ul class="list-unstyled">
-    @foreach (var product in _products)
+@if(ProductSerivice.Products == null || ProductSerivice.Products.Count < 1)
+{
+    <h1>Loading Products</h1>
+}
+else
+{
+    <ul class="list-unstyled">
+    @foreach (var product in ProductSerivice.Products)
    {
        <li class="d-flex align-items-start my-3">
             <div class="media-img-wrapper mr-2">
@@ -15,6 +20,8 @@
        </li>
    }
 </ul>
+}
+
 
 @code {
 
