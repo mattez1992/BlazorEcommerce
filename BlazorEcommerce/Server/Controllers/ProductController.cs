@@ -2,7 +2,7 @@
 
 namespace BlazorEcommerce.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -18,10 +18,17 @@ namespace BlazorEcommerce.Server.Controllers
         {   
             return Ok(await _productService.GetProductsAsync());
         }
-        [HttpGet("id")]
-        public async Task<ActionResult<ServiceResponse<Product>>> GetProductById(int id)
+        [HttpGet("category/{categoryUrl}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductsByCategory(string categoryUrl)
         {
-            return Ok(await _productService.GetByIdAsync(id));
+            var result = await _productService.GetProductsByCategoryAsync(categoryUrl);
+            return Ok(result);
+        }
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProduct(int productId)
+        {
+            var result = await _productService.GetByIdAsync(productId);
+            return Ok(result);
         }
     }
 }

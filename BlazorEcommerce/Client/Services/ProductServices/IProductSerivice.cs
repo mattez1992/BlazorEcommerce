@@ -5,6 +5,8 @@ namespace BlazorEcommerce.Client.Services.ProductServices
     {
         List<Product> Products { get; set; }
 
-        Task GetProducts();
+        event Action ProductsChanged;
+        Task<ServiceResponse<Product>> GetProductById(int id);
+        Task GetProducts(string? categoryUrl = null);
     }
 }

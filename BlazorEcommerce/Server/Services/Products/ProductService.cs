@@ -21,13 +21,34 @@ namespace BlazorEcommerce.Server.Services.Products
             };
             return response;
         }
-        public async Task<ServiceResponse<Product>> GetByIdAsync(int id)
+        public async Task<ServiceResponse<List<Product>>> GetProductsByCategoryAsync(string categoryUrl)
         {
-            ServiceResponse<Product> response = new()
+            var response = new ServiceResponse<List<Product>>
             {
-                Data = await _context.Products.FirstOrDefaultAsync(x => x.Id == id)
+                Data = await _context.Products
+                   .Where(p => p.Category.Url.Equals(categoryUrl))
+                   .ToListAsync()
             };
+
             return response;
         }
+        public async Task<ServiceResponse<Product>> GetByIdAsync(int id)
+        {
+            ServiceResponse<Product> response = new();
+            var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if(product == null)
+            {
+                response.Success = false;
+                response.Message = "No product found";
+            }
+            else
+            {
+                response.Data = product;
+            }
+            
+            return response;
+        }
+
+        
     }
 }

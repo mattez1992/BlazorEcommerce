@@ -10,10 +10,11 @@ else
    {
        <li class="d-flex align-items-start my-3">
             <div class="media-img-wrapper mr-2">
-                <img src="@product.ImageUrl" alt="@product.Title" class="media-img" />
+                    <a href="/product/@product.Id"><img src="@product.ImageUrl" alt="@product.Title" class="media-img" /></a>
+                
             </div>
             <div class="flex-grow-1 ms-3" >
-                <a href=""><h4 class="mb-0">@product.Title</h4> </a>
+                <a href="/product/@product.Id"><h4 class="mb-0">@product.Title</h4> </a>
                 <p>@product.Description</p>
                 <h5 class="price">$@product.Price</h5>
             </div>

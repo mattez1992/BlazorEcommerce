@@ -3,7 +3,9 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+.price {
+    color: green;
+}
 h1:focus {
     outline: none;
 }

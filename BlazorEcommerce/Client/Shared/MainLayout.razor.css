@@ -3,7 +3,9 @@
     display: flex;
     flex-direction: column;
 }
-
+.price {
+    color: green;
+}
 main {
     flex: 1;
 }

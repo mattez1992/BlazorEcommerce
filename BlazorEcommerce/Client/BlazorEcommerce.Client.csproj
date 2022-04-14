@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Shared\BlazorEcommerce.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Services\CategoryServices\CategoryService.cs" />
+  </ItemGroup>
+
 </Project>

@@ -19,9 +19,7 @@
     margin-right: 15px;
     margin-bottom: 30px;
 }
-.price{
-    color:green;
-}
+
 @media (max-width: 1023.98px) {
     .media {
         flex-direction: column;

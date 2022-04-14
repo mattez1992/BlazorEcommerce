@@ -1,23 +1,20 @@
-﻿using BlazorEcommerce.Shared.Models;
-using BlazorEcommerce.Shared;
-using Microsoft.AspNetCore.Components;
-using System.Net.Http.Json;
-using BlazorEcommerce.Client.Services.ProductServices;
+﻿
 
 namespace BlazorEcommerce.Client.Shared.ProductComponents
 {
-    public partial class ProductList : ComponentBase
+    public partial class ProductList : ComponentBase, IDisposable
     {
         [Inject]
         public IProductSerivice ProductSerivice { get; set; }
 
-        private static List<Product> _products = new List<Product>();
-
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            await ProductSerivice.GetProducts();
-
+            ProductSerivice.ProductsChanged += StateHasChanged;
+            base.OnInitialized();
         }
-
+        public void Dispose()
+        {
+            ProductSerivice.ProductsChanged -= StateHasChanged;
+        }
     }
 }
