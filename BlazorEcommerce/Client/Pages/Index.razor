@@ -1,5 +1,13 @@
 ﻿@page "/"
+@page "/search/{searchText}/{page:int}"
 @page "/{categoryUrl}"
 <PageTitle>Top Styles</PageTitle>
+@if(SearchText == null && CategoryUrl == null)
+{
+    <FeaturedProducts />
+}
+else
+{
+    <ProductList />
+}
 
-<ProductList />

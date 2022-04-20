@@ -1,0 +1,23 @@
+﻿<div class="dropdown">
+    <button @onclick="HandleOnClick" @onfocusout="HandleOnFocusOut" class="btn btn-secondary dropdown-toggle ms-1">
+        <i class="oi oi-person"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right @UserMenuCssClass">
+        <AuthorizeView>
+            <Authorized>
+                 <a href="profile" class="dropdown-item ms-0">Profile</a>
+                 <hr />
+                <button class="dropdown-item" @onclick="Logout">Logout</button>
+            </Authorized>
+            <NotAuthorized>
+                <a href="login?returnUrl=@Navigation.ToBaseRelativePath(Navigation.Uri)" class="dropdown-item ms-0">Login</a>
+                <a href="register" class="dropdown-item ms-0">Register</a>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </div>
+</div>
+
+@code {
+
+}

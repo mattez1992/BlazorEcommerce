@@ -1,7 +1,7 @@
-﻿<h3>ProductList</h3>
+﻿
 @if(ProductSerivice.Products == null || ProductSerivice.Products.Count < 1)
 {
-    <h1>Loading Products</h1>
+    <h1>@ProductSerivice.Message</h1>
 }
 else
 {
@@ -9,18 +9,26 @@ else
     @foreach (var product in ProductSerivice.Products)
    {
        <li class="d-flex align-items-start my-3">
-            <div class="media-img-wrapper mr-2">
+            <div class=" mr-2">
                     <a href="/product/@product.Id"><img src="@product.ImageUrl" alt="@product.Title" class="media-img" /></a>
                 
             </div>
             <div class="flex-grow-1 ms-3" >
                 <a href="/product/@product.Id"><h4 class="mb-0">@product.Title</h4> </a>
                 <p>@product.Description</p>
-                <h5 class="price">$@product.Price</h5>
+                <h5 class="price">@GetPriceText(product)</h5>
             </div>
        </li>
    }
 </ul>
+<nav>
+  <ul class="pagination">
+      @for (var i = 1; i <= ProductSerivice.PageCount; i++)
+     {
+          <li class="page-item @(i== ProductSerivice.CurrentPage ? "active" : "notActive")"><a class="page-link" href="/search/@ProductSerivice.LastSearchText/@i">@i</a></li>
+     }
+  </ul>
+</nav>
 }
 
 

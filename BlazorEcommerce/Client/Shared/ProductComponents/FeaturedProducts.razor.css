@@ -1,0 +1,38 @@
+﻿.container {
+    display: flex;
+    flex-direction: row;
+    /*Makes it scrollable*/
+    overflow-x: auto;
+    justify-content: center;
+
+}
+.card{
+    height:100%;
+}
+img {
+    /*    max-width: auto;
+    max-height: 200px;*/
+    max-width: 16rem;
+    max-height: 300px;
+    transition: transform .2s;
+    margin-bottom: 10px;
+}
+
+    img:hover {
+        transform: scale(0.9) rotate(5deg);
+    }
+
+/*.featured-product {
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    max-width: 200px;
+}*/
+
+@media (max-width: 1023.98px) {
+    .container {
+        justify-content: flex-start;
+    }
+}

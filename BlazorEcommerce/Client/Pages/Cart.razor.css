@@ -1,0 +1,5 @@
+﻿@media (min-width: 900) {
+    .row {
+        flex-direction:column-reverse;
+    }
+}

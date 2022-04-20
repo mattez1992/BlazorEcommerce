@@ -4,6 +4,11 @@ global using Microsoft.EntityFrameworkCore;
 global using BlazorEcommerce.Server.Data;
 global using BlazorEcommerce.Server.Services.Products;
 global using BlazorEcommerce.Server.Services.CateGoryServices;
+global using BlazorEcommerce.Shared.Dtos;
+global using BlazorEcommerce.Server.Services.CartItemServices;
+global using BlazorEcommerce.Server.Services.AuthServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+// This will make our json web token work with authorization
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey =
+                new SymmetricSecurityKey(System.Text.Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
+// end jwt config
 var app = builder.Build();
 app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
@@ -39,6 +62,9 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
+// add middleware to make authorization work 
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.MapRazorPages();

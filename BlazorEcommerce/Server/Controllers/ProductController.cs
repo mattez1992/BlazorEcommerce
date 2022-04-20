@@ -18,6 +18,11 @@ namespace BlazorEcommerce.Server.Controllers
         {   
             return Ok(await _productService.GetProductsAsync());
         }
+        [HttpGet("featured")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetFeaturedProducts()
+        {
+            return Ok(await _productService.GetFeaturedProducts());
+        }
         [HttpGet("category/{categoryUrl}")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductsByCategory(string categoryUrl)
         {
@@ -28,6 +33,18 @@ namespace BlazorEcommerce.Server.Controllers
         public async Task<ActionResult<ServiceResponse<Product>>> GetProduct(int productId)
         {
             var result = await _productService.GetByIdAsync(productId);
+            return Ok(result);
+        }
+        [HttpGet("search/{searchText}/{page}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> SearchProducts(string searchText, int page = 1)
+        {
+            var result = await _productService.SearchProducts(searchText, page);
+            return Ok(result);
+        }
+        [HttpGet("searchsuggestions/{searchText}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductSearchSuggestions(string searchText)
+        {
+            var result = await _productService.GetProductSearchSuggestions(searchText);
             return Ok(result);
         }
     }
