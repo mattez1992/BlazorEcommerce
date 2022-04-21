@@ -12,6 +12,8 @@ namespace BlazorEcommerce.Client.Pages.Auth
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [Inject]
+        public ICartItemService CartItemService { get; set; }
         private UserLoginDto _userLoginDto = new();
         string _message = string.Empty;
         string _messageCss = string.Empty;
@@ -48,6 +50,8 @@ namespace BlazorEcommerce.Client.Pages.Auth
             {
                 await LocalStorageService.SetItemAsync("authToken", result.Data);
                 await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                await CartItemService.StoreCartItems(true);
+                await CartItemService.GetCartItemsCount();
                 NavigationManager.NavigateTo(returnUrl);
             }
             else

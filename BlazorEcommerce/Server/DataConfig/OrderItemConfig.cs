@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace BlazorEcommerce.Server.DataConfig
 {
-    public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
+    public class OrderItemConfig : IEntityTypeConfiguration<OrderItem>
     {
-        public void Configure(EntityTypeBuilder<CartItem> builder)
+        public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(cartItem => new {cartItem.UserId,cartItem.ProductId, cartItem.ProductTypeId});
+            builder.HasKey(orderItem => new { orderItem.OrderId, orderItem.ProductId, orderItem.ProductTypeId });
         }
     }
 }

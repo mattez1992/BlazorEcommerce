@@ -9,6 +9,8 @@ global using BlazorEcommerce.Client.Services.CartItemServices;
 global using Blazored.LocalStorage;
 global using BlazorEcommerce.Client.Services.AuthServices;
 global using Microsoft.AspNetCore.Components.Authorization;
+global using BlazorEcommerce.Client.Services.OrderServices;
+global using BlazorEcommerce.Client.Services.AddressServices;
 using BlazorEcommerce.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,6 +26,8 @@ builder.Services.AddScoped<IProductSerivice, ProductSerivice>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 // this will make the custom authProvide work also add cascadingAuthenticationState in app.rzor
 builder.Services.AddOptions();

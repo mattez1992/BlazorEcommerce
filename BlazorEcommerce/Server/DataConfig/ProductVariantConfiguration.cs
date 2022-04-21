@@ -122,6 +122,24 @@ namespace BlazorEcommerce.Server.DataConfig
                     ProductTypeId = 1,
                     Price = 79.99m,
                     OriginalPrice = 399m
+                },
+                 new ProductVariant
+                 {
+                     ProductId = 12,
+                     ProductTypeId = 5,
+                     Price = 3.99m
+                 },
+                new ProductVariant
+                {
+                    ProductId = 12,
+                    ProductTypeId = 6,
+                    Price = 9.99m
+                },
+                new ProductVariant
+                {
+                    ProductId = 12,
+                    ProductTypeId = 7,
+                    Price = 19.99m
                 }
             );
         }

@@ -4,6 +4,7 @@ using BlazorEcommerce.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorEcommerce.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220420123222_AddedAddressAndOrderTables")]
+    partial class AddedAddressAndOrderTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -594,33 +596,6 @@ namespace BlazorEcommerce.Server.Migrations
                             Deleted = false,
                             OriginalPrice = 399m,
                             Price = 79.99m,
-                            Visible = true
-                        },
-                        new
-                        {
-                            ProductId = 12,
-                            ProductTypeId = 5,
-                            Deleted = false,
-                            OriginalPrice = 0m,
-                            Price = 3.99m,
-                            Visible = true
-                        },
-                        new
-                        {
-                            ProductId = 12,
-                            ProductTypeId = 6,
-                            Deleted = false,
-                            OriginalPrice = 0m,
-                            Price = 9.99m,
-                            Visible = true
-                        },
-                        new
-                        {
-                            ProductId = 12,
-                            ProductTypeId = 7,
-                            Deleted = false,
-                            OriginalPrice = 0m,
-                            Price = 19.99m,
                             Visible = true
                         });
                 });

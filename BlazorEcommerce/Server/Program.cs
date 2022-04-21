@@ -9,6 +9,8 @@ global using BlazorEcommerce.Server.Services.CartItemServices;
 global using BlazorEcommerce.Server.Services.AuthServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using BlazorEcommerce.Server.Services.OrderServices;
+using BlazorEcommerce.Server.Services.AddressServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 // This will make our json web token work with authorization
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -42,6 +45,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 // end jwt config
+// make httpContext accessible 
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 app.UseSwaggerUI();
 // Configure the HTTP request pipeline.

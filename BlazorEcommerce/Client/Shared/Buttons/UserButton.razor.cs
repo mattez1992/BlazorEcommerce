@@ -8,12 +8,15 @@
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [Inject]
         public NavigationManager Navigation { get; set; }
+        [Inject]
+        public ICartItemService CartItemService { get; set; }
         private bool _showUserMenu = false;
         private string UserMenuCssClass => _showUserMenu ? "d-block" : null;
         private async Task Logout()
         {
             await LocalStorageService.RemoveItemAsync("authToken");
             await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            await CartItemService.GetCartItemsCount();
             Navigation.NavigateTo("");
         }
         private void HandleOnClick()

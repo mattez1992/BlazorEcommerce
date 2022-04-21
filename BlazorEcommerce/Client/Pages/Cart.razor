@@ -7,6 +7,9 @@
 {
     <span>@_message</span>
 }
+else if(_orderIsPlaced){
+    <span>Thank you for placing your order! See your orders <a href="orders">here</a></span>
+}
 else
 {
     <div class="container">
@@ -26,12 +29,12 @@ else
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-12">
-                                             Price:&nbsp;<span class="price">$@product.Price</span> 
+                                            Price:&nbsp;<span class="price">$@product.Price</span>
                                         </div>
                                         <div class="col-12 ">
                                             @product.Quantity x @product.Price = <span class="price">$@(product.Price * product.Quantity)</span>
                                         </div>
-                                </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
                                     <input type="number" value="@product.Quantity"
@@ -56,13 +59,24 @@ else
                         <h2>Order Summary</h2>
                     </li>
                     <li class="list-group-item">
-                       Total (@_cartItems.Count): <span class="price">  $@_cartItems.Sum(product => @product.Price * product.Quantity)</span>
+                        Total (@_cartItems.Count): <span class="price">  $@_cartItems.Sum(product => @product.Price * product.Quantity)</span>
                     </li>
                     <li class="list-group-item my-1">
-                        <button class="btn alert-success">Checkout</button>
+                        <button class="btn alert-success" @onclick="PlaceOrder">Place Order</button>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>  
+        <div class="row">
+            <div class="col-12">
+                @if (_isAuthenticated)
+                {
+                    <div>
+                        <h5>Delivery Address</h5>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
 }
