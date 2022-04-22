@@ -1,0 +1,59 @@
+﻿@page "/admin/product-types"
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Categories</h3>
+
+
+ @if (_editingProductType != null)
+{
+    <div class="row">
+        <EditForm Model="_editingProductType" OnSubmit="UpdateProductType">
+            <div class="row">
+                <div class="col">
+                    <InputText @bind-Value="_editingProductType.Name" class="form-control"></InputText>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success">
+                        <i class="oi oi-check"></i>
+                    </button>
+                    <button class="btn btn-danger" @onclick="CancelEditing">
+                        <i class="oi oi-circle-x"></i>
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+}
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in ProductTypeService.ProductTypes)
+                {
+
+                    <tr>
+                        <td> @product.Name</td>
+                        <td>
+                            <button class="btn btn-warning" @onclick="(() => EditProductType(product))">
+                                <i class="oi oi-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+<button class="btn btn-primary" @onclick="CreateNewProductType">
+    <i class="oi oi-plus"></i> Add new product type
+</button>
+
+@code {
+  
+}

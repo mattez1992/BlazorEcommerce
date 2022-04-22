@@ -33,17 +33,18 @@ namespace BlazorEcommerce.Client.Services.OrderServices
             return result.Data;
         }
 
-        public async Task PlaceOrder()
+        public async Task<string> PlaceOrder()
         {
             if (await IsUserAuthenticated())
             {
-                //var result = await _httpClient.PostAsync("api/payment/checkout", null);
-                //var url = await result.Content.ReadAsStringAsync();
-                var result = await _httpClient.PostAsync("api/order",null);
+                var result = await _httpClient.PostAsync("api/payment/checkout", null);
+                var url = await result.Content.ReadAsStringAsync();
+                return url;
+                //var result = await _httpClient.PostAsync("api/order",null);
             }
             else
             {
-                _navigationManager.NavigateTo("login");
+                return "login";
             }
         }
         private async Task<bool> IsUserAuthenticated()

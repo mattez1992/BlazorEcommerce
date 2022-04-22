@@ -13,7 +13,6 @@
         string _message = "Loading cart...";
         List<CartProductResponseDTO> _cartItems = null;
         private bool _isAuthenticated = false;
-        private bool _orderIsPlaced = false;
         protected override async Task OnInitializedAsync()
         {
             _isAuthenticated = await AuthService.IsUserAuthenticated();
@@ -43,9 +42,8 @@
 
         private async Task PlaceOrder()
         {
-            await OrderService.PlaceOrder();
-            await CartItemService.GetCartItemsCount();
-            _orderIsPlaced = true;
+            var url = await OrderService.PlaceOrder();
+            NavigationManager.NavigateTo(url);
         }
     }
 }

@@ -5,6 +5,6 @@ namespace BlazorEcommerce.Client.Services.OrderServices
     {
         Task<OrderDetailsDto> GetOrderDetails(int orderId);
         Task<List<OrderOverViewDto>> GetOrders();
-        Task PlaceOrder();
+        Task<string> PlaceOrder();
     }
 }

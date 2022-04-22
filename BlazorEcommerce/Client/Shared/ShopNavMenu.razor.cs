@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorEcommerce.Client.Shared
 {
-    public partial class ShopNavMenu : ComponentBase
+    public partial class ShopNavMenu : ComponentBase, IDisposable
     {
         [Inject]
         public ICategoryService CategoryService { get; set; }
@@ -17,12 +17,17 @@ namespace BlazorEcommerce.Client.Shared
         {
             await base.OnInitializedAsync();
             await CategoryService.GetCategoriesAsync();
-            
+            CategoryService.OnChange += StateHasChanged;
+
         }
         private void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
         }
 
+        public void Dispose()
+        {
+            CategoryService.OnChange -= StateHasChanged;
+        }
     }
 }

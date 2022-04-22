@@ -91,7 +91,10 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             }
             
         }
-
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _dataContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+        }
         public async Task<bool> UserExists(string email)
         {
             var userExists = await _dataContext.Users.AnyAsync(x => x.Email.ToLower().Equals(email.ToLower()));

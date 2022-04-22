@@ -20,7 +20,8 @@ namespace BlazorEcommerce.Server.Services.CateGoryServices
             ServiceResponse<List<Category>> serviceResponse = new();
             try
             {
-                var result = await _dataContext.Categories.ToListAsync();
+                var result = await _dataContext.Categories.Where(c => !c.Deleted && c.Visible)
+                .ToListAsync();
                 if (result.Count == 0)
                 {
                     serviceResponse.Message = "No categories found";
@@ -66,5 +67,63 @@ namespace BlazorEcommerce.Server.Services.CateGoryServices
                 return serviceResponse;
             }
         }
+        #region Admin Service
+        public async Task<ServiceResponse<List<Category>>> UpdateCategory(Category category)
+        {
+            var dbCategory = (await GetCategoryByIdAsync(category.Id)).Data;
+            if (dbCategory == null)
+            {
+                return new ServiceResponse<List<Category>>
+                {
+                    Success = false,
+                    Message = "Category not found."
+                };
+            }
+
+            dbCategory.Name = category.Name;
+            dbCategory.Url = category.Url;
+            dbCategory.Visible = category.Visible;
+
+            await _dataContext.SaveChangesAsync();
+
+            return await GetAdminCategories();
+
+        }
+        public async Task<ServiceResponse<List<Category>>> GetAdminCategories()
+        {
+            var categories = await _dataContext.Categories
+                .Where(c => !c.Deleted)
+                .ToListAsync();
+            return new ServiceResponse<List<Category>>
+            {
+                Data = categories
+            };
+        }
+        public async Task<ServiceResponse<List<Category>>> AddCategory(Category category)
+        {
+            category.Editing = category.IsNew = false;
+            _dataContext.Categories.Add(category);
+            await _dataContext.SaveChangesAsync();
+            return await GetAdminCategories();
+        }
+
+        public async Task<ServiceResponse<List<Category>>> DeleteCategory(int id)
+        {
+            Category category = (await GetCategoryByIdAsync(id)).Data;
+            if (category == null)
+            {
+                return new ServiceResponse<List<Category>>
+                {
+                    Success = false,
+                    Message = "Category not found."
+                };
+            }
+
+            category.Deleted = true;
+            await _dataContext.SaveChangesAsync();
+
+            return await GetAdminCategories();
+        }
+        #endregion
     }
 }
