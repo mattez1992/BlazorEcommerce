@@ -26,6 +26,7 @@ else
             </tr>
         </thead>
         <tbody>
+     @*       // Virtualize works like a foreach*@
             <Virtualize Items="ProductService.AdminProducts" Context="product">
                 <tr>
                     <td><img class="wh100" src="@product.ImageUrl" /></td>
